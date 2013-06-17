@@ -42,6 +42,17 @@ task :gem  do |t|
     spec.required_ruby_version = '>= 1.8.4'
     spec.add_development_dependency 'shoulda'
     spec.requirements << 'WebSphere MQ v5.3, v6 or v7 Client or Server with Development Kit'
+
+    if RUBY_PLATFORM =~ /darwin/
+      spec.post_install_message = <<-MESSAGE
+
+###########################################
+* [rubywmq] The rubywmq gem cannot be installed on a mac as you need WMQ client libraries on the system.
+* [rubywmq] Installation will complete successfully (so you can keep this gem in your bundles) but the gem will not function, you'll need stubs on a mac.
+###########################################
+
+      MESSAGE
+    end
   end
   p gemspec.files
   Gem::Package.build gemspec
