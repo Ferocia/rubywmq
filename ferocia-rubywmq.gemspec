@@ -25,11 +25,9 @@ Gem::Specification.new do |spec|
   spec.requirements << 'WebSphere MQ v5.3, v6 or v7 Client or Server with Development Kit'
 
   spec.post_install_message = <<-MESSAGE
-
-###########################################
-* [rubywmq] The rubywmq gem cannot be installed on a mac as you need WMQ client libraries on the system.
-* [rubywmq] Installation will complete successfully (so you can keep this gem in your bundles) but the gem will not function, you'll need stubs on a mac.
-###########################################
-
+* ferocia-rubywmq builds against the WMQ libs, which aren't available for OS X.
+* The gem will still install, but the build will be skipped, producing a
+* non-functional gem, so you'll need stubs. (You can skip the build elsewhere by
+* setting the DISABLE_RUBYWMQ environment variable.)
   MESSAGE
 end
