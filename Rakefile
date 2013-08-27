@@ -24,7 +24,7 @@ task :gem  do |t|
   ]
 
   gemspec = Gem::Specification.new do |spec|
-    spec.name              = 'rubywmq'
+    spec.name              = 'ferocia-rubywmq'
     spec.version           = WMQ::VERSION
     spec.platform          = Gem::Platform::RUBY
     spec.authors           = ['Reid Morrison', 'Edwin Fine']
@@ -55,7 +55,7 @@ task :gem  do |t|
     end
   end
   p gemspec.files
-  Gem::Package.build gemspec
+  Gem::Builder.new(gemspec).build
 end
 
 desc "Build a binary gem including pre-compiled binary files for re-distribution"
@@ -66,7 +66,7 @@ task :binary  do |t|
   FileUtils.copy('ext/wmq.so', 'lib/wmq/wmq.so')
 
   gemspec = Gem::Specification.new do |spec|
-    spec.name              = 'rubywmq'
+    spec.name              = 'ferocia-rubywmq'
     spec.version           = WMQ::VERSION
     spec.platform          = Gem::Platform::CURRENT
     spec.authors           = ['Reid Morrison', 'Edwin Fine']
