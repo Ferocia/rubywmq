@@ -2,7 +2,7 @@ require 'wmq/version'
 require 'wmq/queue_manager'
 require 'wmq/message'
 
-unless RUBY_PLATFORM =~ /darwin/
+unless RUBY_PLATFORM =~ /darwin/ || ENV['DISABLE_RUBYWMQ']
   # don't try and require any of these on a mac as they do not exist, they
   # required the gem extensions to have been compiled.
 
