@@ -5,7 +5,7 @@ Gem::Specification.new do |spec|
   excludes = [/lib.wmq.constants\.rb/, /lib.wmq.constants_admin\.rb/, /ext.wmq_structs\.c/, /ext.wmq_reason\.c/, /ext.Makefile/, /ext.*\.o/, /ext.wmq\.so/, /\.gem$/, /\.log$/, /nbproject/]
 
   spec.name              = 'ferocia-rubywmq'
-  spec.version           = "1.1.0"
+  spec.version           = "1.1.1"
   spec.platform          = Gem::Platform::RUBY
   spec.authors           = ['Reid Morrison', 'Edwin Fine']
   spec.email             = ['reidmo@gmail.com']

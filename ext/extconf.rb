@@ -14,31 +14,39 @@
 #  limitations under the License.
 ################################################################################
 
-require 'mkmf'
-require_relative 'generate/generate_reason'
-require_relative 'generate/generate_const'
-require_relative 'generate/generate_structs'
-
-include_path = ''
-if RUBY_PLATFORM =~ /mswin32/
-  include_path = 'C:\Program Files\IBM\WebSphere MQ\Tools\c\include'
-  dir_config('mqm', include_path, '.')
+if RUBY_PLATFORM =~ /darwin/
+   # do nothing on a mac, this is so people developing applications using this
+   # gem on a mac (using stubs for development) can still keep the gem in their
+   # Gemfile
+   # create a blank Makefile to satisfy extension install requirements
+   File.open("Makefile", "w") { |f| f << 'install:' }
 else
-  include_path = '/opt/mqm/inc'
-  #dir_config('mqm', include_path, '/opt/mqm/lib')
+  require 'mkmf'
+  require_relative 'generate/generate_reason'
+  require_relative 'generate/generate_const'
+  require_relative 'generate/generate_structs'
+
+  include_path = ''
+  if RUBY_PLATFORM =~ /mswin32/
+    include_path = 'C:\Program Files\IBM\WebSphere MQ\Tools\c\include'
+    dir_config('mqm', include_path, '.')
+  else
+    include_path = '/opt/mqm/inc'
+    #dir_config('mqm', include_path, '/opt/mqm/lib')
+  end
+
+  have_header('cmqc.h')
+
+  # Check for WebSphere MQ Server library
+  unless (RUBY_PLATFORM =~ /win/i) || (RUBY_PLATFORM =~ /solaris/i) || (RUBY_PLATFORM =~ /linux/i)
+    have_library('mqm')
+  end
+
+  # Generate Source Files
+  GenerateReason.generate(include_path+'/')
+  GenerateConst.generate(include_path+'/', 'lib')
+  GenerateStructs.new(include_path+'/', 'generate').generate
+
+  # Generate Makefile
+  create_makefile('wmq/wmq')
 end
-
-have_header('cmqc.h')
-
-# Check for WebSphere MQ Server library
-unless (RUBY_PLATFORM =~ /win/i) || (RUBY_PLATFORM =~ /solaris/i) || (RUBY_PLATFORM =~ /linux/i)
-  have_library('mqm')
-end
-
-# Generate Source Files
-GenerateReason.generate(include_path+'/')
-GenerateConst.generate(include_path+'/', 'lib')
-GenerateStructs.new(include_path+'/', 'generate').generate
-
-# Generate Makefile
-create_makefile('wmq/wmq')
