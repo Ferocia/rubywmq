@@ -15,11 +15,15 @@
 ################################################################################
 
 # Load wmq that uses auto-load library.
-# 
+#
 # If it fails, then it is likely due to this platform not being supported
 # by auto load facility in Ruby WMQ, so try to load client linked library
-begin
-  require 'wmq/wmq'
-rescue LoadError
-  require 'wmq/wmq_client'
+#
+# Don't try and load wmq on a mac
+unless RUBY_PLATFORM =~ /darwin/
+  begin
+    require 'wmq/wmq'
+  rescue LoadError
+    require 'wmq/wmq_client'
+  end
 end
