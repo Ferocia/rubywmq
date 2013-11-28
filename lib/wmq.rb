@@ -20,7 +20,7 @@
 # by auto load facility in Ruby WMQ, so try to load client linked library
 #
 # Don't try and load wmq on a mac
-unless RUBY_PLATFORM =~ /darwin/
+unless RUBY_PLATFORM =~ /darwin/ || ENV['DISABLE_RUBYWMQ']
   begin
     require 'wmq/wmq'
   rescue LoadError
