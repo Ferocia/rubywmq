@@ -1,13 +1,7 @@
-lib = File.expand_path('../lib/', __FILE__)
-$:.unshift lib unless $:.include?(lib)
-
-require 'rubygems'
-require 'rubygems/package'
 require 'rake/clean'
 require 'rake/testtask'
-require 'date'
-require 'wmq/version'
 
+<<<<<<< HEAD
 desc "Build a binary gem including pre-compiled binary files for re-distribution"
 task :binary  do |t|
   # Move compiled files into locations for repackaging as a binary gem
@@ -39,14 +33,29 @@ task :binary  do |t|
     spec.requirements << 'WebSphere MQ v5.3, v6 or v7 Client or Server with Development Kit'
   end
   Gem::Package.build gemspec
+=======
+require_relative 'lib/wmq/version'
+
+task :gem do
+  system 'gem build rubywmq.gemspec'
 end
 
-desc "Run Test Suite"
+task publish: :gem do
+  system "git tag -a v#{WMQ::VERSION} -m 'Tagging #{WMQ::VERSION}'"
+  system 'git push --tags'
+  system "gem push rubywmq-#{WMQ::VERSION}.gem"
+  system "rm rubywmq-#{WMQ::VERSION}.gem"
+>>>>>>> v2.1.0
+end
+
+desc 'Run Test Suite'
 task :test do
   Rake::TestTask.new(:functional) do |t|
-    t.test_files = FileList['test/*_test.rb']
+    t.test_files = FileList['test/**/*_test.rb']
     t.verbose    = true
   end
 
   Rake::Task['functional'].invoke
 end
+
+task default: :test

@@ -15,7 +15,8 @@ else
 
   include_path = ''
   if RUBY_PLATFORM =~ /win|mingw/i
-    include_path = 'C:\Program Files\IBM\WebSphere MQ\tools\c\include'
+    x86_path     = 'C:\Program Files (x86)\IBM\WebSphere MQ\tools\c\include'
+    include_path = File.directory?(x86_path) ? x86_path : 'C:\Program Files\IBM\WebSphere MQ\tools\c\include'
     dir_config('mqm', include_path, '.')
   else
     include_path = '/opt/mqm/inc'
