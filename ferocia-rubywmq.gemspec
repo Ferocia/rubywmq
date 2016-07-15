@@ -18,10 +18,9 @@ Gem::Specification.new do |spec|
   spec.license           = "Apache License V2.0"
   spec.extensions        << 'ext/extconf.rb'
   spec.rubyforge_project = 'rubywmq'
-  spec.test_file         = 'tests/test.rb'
   spec.has_rdoc          = true
-  spec.required_ruby_version = '>= 2.2.0'
-  spec.add_development_dependency 'shoulda'
+  spec.required_ruby_version = '>= 1.9.0'
+  spec.add_development_dependency 'shoulda', '~> 0'
   spec.requirements << 'WebSphere MQ v5.3, v6, v7 and v7.5, v8 Client or Server with Development Kit'
 
   spec.post_install_message = <<-MESSAGE
