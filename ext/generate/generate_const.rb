@@ -68,7 +68,7 @@ class GenerateConst
 ################################################################################
 module WMQ
 END_OF_STRING
-    [ ['Connect Options','cmqc.h','MQCNO_',/(VERSION)|(CONN_TAG)|(HANDLE_SHARE)|(_LENGTH)/],
+    [ ['Connect Options','cmqc.h','MQCNO_',/(VERSION)|(CONN_TAG)|(_LENGTH)/],
       ['Open Options', 'cmqc.h','MQOO_' ],
       ['Close Options', 'cmqc.h','MQCO_'],
       ['Match Options', 'cmqc.h','MQMO_'],
