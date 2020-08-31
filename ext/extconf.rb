@@ -1,4 +1,9 @@
-if RUBY_PLATFORM =~ /darwin/ || ENV['DISABLE_RUBYWMQ']
+include_path = ''
+if RUBY_PLATFORM =~ /win|mingw/i
+  x86_path     = 'C:\Program Files (x86)\IBM\WebSphere MQ\tools\c\include'
+  include_path = File.directory?(x86_path) ? x86_path : 'C:\Program Files\IBM\WebSphere MQ\tools\c\include'
+  dir_config('mqm', include_path, '.')
+elsif RUBY_PLATFORM =~ /darwin/ || ENV['DISABLE_RUBYWMQ']
   # do nothing on a mac, this is so people developing applications using this
   # gem on a mac (using stubs for development) can still keep the gem in their
   # Gemfile
