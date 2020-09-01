@@ -6,6 +6,9 @@ unless RUBY_PLATFORM =~ /darwin/ || ENV['DISABLE_RUBYWMQ']
   # don't try and require any of these on a mac as they do not exist, they
   # required the gem extensions to have been compiled.
 
+  require 'wmq/constants'
+  require 'wmq/constants_admin'
+
   # Load wmq using the auto-load library.
   #
   # If it fails, then it is most likely since this platform is not supported
